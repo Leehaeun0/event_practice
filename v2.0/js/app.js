@@ -8,6 +8,17 @@ const $activeTodos = document.querySelector('.active-todos');
 const $completeAll = document.querySelector('.complete-all');
 
 
+const completedTodos = () => {
+  $completedTodos.textContent = todos.filter(todo => todo.completed).length || 0;
+  // $completedTodos.textContent = todos.filter(({ completed }) => completed).length || 0;
+};
+
+
+const activeTodos = () => {
+  $activeTodos.textContent = todos.filter(todo => !todo.completed).length || 0;
+};
+
+
 const render = () => {
   let html = '';
 
@@ -21,10 +32,8 @@ const render = () => {
 
   $todos.innerHTML = html;
 
-  $completedTodos.textContent = todos.filter(todo => todo.completed).length || 0;
-
-  $activeTodos.textContent = todos.filter(todo => !todo.completed).length || 0;
-
+  completedTodos();
+  activeTodos();
 };
 
 
@@ -81,6 +90,7 @@ $todos.onclick = e => {
 $completeAll.onchange = e => {
   // todos = todos.map(todo => ({ ...todo, completed: e.target.checked ? true : false }));
   todos = todos.map(todo => ({ ...todo, completed: !!e.target.checked }));
+  // todos = todos.map(todo => ({ ...todo, completed }));
 
   render(); 
 };
